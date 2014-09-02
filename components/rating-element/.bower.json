@@ -1,0 +1,28 @@
+{
+  "name": "rating-element",
+  "authors": [
+    "dreyescat <dreyes.cat@gmail.com>"
+  ],
+  "description": "A rating web component a la python range",
+  "keywords": "rating, rate, vote, polymer, web-components",
+  "main": "rating-element.html",
+  "license": "MIT",
+  "homepage": "https://github.com/dreyescat/rating-element/",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
+    "polymer-test-tools": "Polymer/polymer-test-tools#>=0.4.0 <1.0.0"
+  },
+  "_release": "cc92cc0841",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "cc92cc08414cab1e979a2a096ac9ce8068551903"
+  },
+  "_source": "git://github.com/dreyescat/rating-element.git",
+  "_target": "master",
+  "_originalSource": "dreyescat/rating-element",
+  "_direct": true
+}

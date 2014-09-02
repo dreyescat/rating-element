@@ -1,0 +1,7 @@
+{
+  "name": "rating-element#gh-pages",
+  "private": true,
+  "dependencies": {
+    "rating-element": "dreyescat/rating-element#master"
+  }
+}
