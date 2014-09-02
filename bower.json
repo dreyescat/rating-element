@@ -1,0 +1,19 @@
+{
+  "name": "rating-element",
+  "version": "0.0.0",
+  "authors": [
+    "dreyescat <dreyes.cat@gmail.com>"
+  ],
+  "description": "A rating web component",
+  "keywords": "rating, rate, vote, polymer, web-components",
+  "main": "rating-element.html",
+  "license": "MIT",
+  "homepage": "https://github.com/dreyescat/rating-element/",
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
+    "polymer-test-tools": "Polymer/polymer-test-tools#>=0.4.0 <1.0.0"
+  }
+}

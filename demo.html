@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>rating-element</title>
+
+    <script src="../platform/platform.js"></script>
+    <link rel="import" href="rating-element.html">
+
+  </head>
+  <body unresolved>
+    <p>An example of using <code>&lt;rating-element></code>:</p>
+    <h3>Default rating</h3>
+    <rating-element></rating-element>
+    <h3>Read only rating with a value</h3>
+    <rating-element readonly value="2"></rating-element>
+    <h3>Custom start and stop rate [1..10)</h3>
+    <rating-element start="1" stop="10"></rating-element>
+    <h3>Custom start and stop rate [1..10) with step 2</h3>
+    <rating-element start="1" stop="10" step="2"></rating-element>
+    <h3>Custom stop rate [0..-10) with step -2</h3>
+    <rating-element stop="-10" step="-2"></rating-element>
+  </body>
+</html>

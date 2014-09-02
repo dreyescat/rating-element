@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<polymer-element name="rating-element" attributes="start stop step readonly value">
+  <template>
+    <link rel="stylesheet" href="rating-element.css" />
+    <div id="rating">
+      <template repeat="{{r, i in rates}}"></div>
+        <div class="rating-symbol {{i <= index ? filled : empty}}"></div>
+      </template>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      start: 0,
+      stop: 5,
+      step: 1,
+      readonly: false,
+      empty: 'symbol symbol-empty',
+      filled: 'symbol symbol-filled',
+      indexToRate: function (index) {
+        return this.start + index * this.step;
+      },
+      rateToIndex: function (rate) {
+        // If rate is not a number then NaN will be returned.
+        return Math.max(Math.ceil((rate - this.start) / this.step), 0);
+      },
+      created: function () {
+        // For properties that are objects or arrays, you should always
+        // initialize the properties in the created callback. If you set the
+        // default value directly on the prototype (or on the publish object),
+        // you may run into unexpected “shared state” across different instances
+        // of the same element.
+        this.rates = [];
+      },
+      domReady: function () {
+        var that = this;
+        var ratingSymbols = this.$.rating.getElementsByClassName('rating-symbol');
+        for (var i = 0; i < ratingSymbols.length; i++) {
+          // Add event listeners to every rating symbol
+          ratingSymbols[i].addEventListener('click', (function (index) {
+            return function () {
+              if (!that.readonly) {
+                // Set the index and the rate value corresponding to that index.
+                that.index = index;
+                that.value = that.indexToRate(index);
+              }
+            };
+          })(i));
+          ratingSymbols[i].addEventListener('mouseenter', (function (index) {
+            return function () {
+              if (!that.readonly) {
+                // Highlight the rating being selected.
+                that.index = index;
+              }
+            };
+          })(i));
+          ratingSymbols[i].addEventListener('mouseleave', (function (index) {
+            return function () {
+              if (!that.readonly) {
+                // Restore original index according to the current selected value.
+                that.index = that.rateToIndex(that.value);
+              }
+            };
+          })(i));
+        }
+      },
+      ready: function () {
+        // index will keep the the index of the rating selected or being selected.
+        this.index = this.rateToIndex(this.value);
+        // rates array is created to allow template repeat iteration.
+        for (var i = 0; i < this.rateToIndex(this.stop); i++) {
+          this.rates.push(i);
+        }
+      }
+    });
+  </script>
+</polymer-element>
