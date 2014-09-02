@@ -1,10 +1,10 @@
 {
   "name": "rating-element",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
     "dreyescat <dreyes.cat@gmail.com>"
   ],
-  "description": "A rating web component",
+  "description": "A rating web component a la python range",
   "keywords": "rating, rate, vote, polymer, web-components",
   "main": "rating-element.html",
   "license": "MIT",
