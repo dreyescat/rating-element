@@ -1,5 +1,16 @@
 <link rel="import" href="../polymer/polymer.html">
+<!--
+This is a versatile web component to create rating elements containing arithmetic progressions a la [python range](https://docs.python.org/3/library/stdtypes.html#ranges).
 
+# Example
+
+    <rating-element></rating-element>
+
+@element rating-element
+@blurb Rating element.
+@status alpha
+@homepage http://dreyescat.github.io/rating-element
+-->
 <polymer-element name="rating-element" attributes="start stop step readonly value">
   <template>
     <link rel="stylesheet" href="rating-element.css" />
@@ -11,9 +22,40 @@
   </template>
   <script>
     Polymer({
+      /**
+      * The `start` attribute sets the starting value.
+      *
+      * @attribute start
+      * @type number
+      * @default 0
+      */
       start: 0,
+      /**
+      * The `stop` attribute sets the stop value. The stop value is not included.
+      *
+      * @attribute stop
+      * @type number
+      * @default 5
+      */
       stop: 5,
+      /**
+      * The `step` attribute specifies the increment or decrement.
+      *
+      * If step is positive, the last element is the largest _start + i \* step_ less than stop.
+      * If step is negative, the last element is the smallest _start + i \* step_ greater than stop.
+      *
+      * @attribute step
+      * @type number
+      * @default 1
+      */
       step: 1,
+      /**
+      * The `readonly` attribute indicates that the user cannot modify the value of the control.
+      *
+      * @attribute readonly
+      * @type bool
+      * @default false
+      */
       readonly: false,
       empty: 'symbol symbol-empty',
       filled: 'symbol symbol-filled',
