@@ -2,6 +2,7 @@ module.exports = function (grunt) {
   'use strict';
 
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-gh-pages');
 
   grunt.initConfig({
     'connect': {
@@ -13,8 +14,16 @@ module.exports = function (grunt) {
           keepalive: true
         }
       }
+    },
+    'gh-pages': {
+      src: [
+        'index.html',
+        'bower_components/**/*',
+        'rating-element/*'
+      ]
     }
   });
 
   grunt.registerTask('serve', ['connect']);
+  grunt.registerTask('deploy', ['gh-pages']);
 };
