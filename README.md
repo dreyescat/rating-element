@@ -44,6 +44,14 @@ Attribute     | Options     | Default      | Description
 `stop`        | *number*    | 5            | The `stop` attribute sets the stop value. The stop value is not included.
 `step`        | *number*    | 1            | The `step` attribute specifies the increment or decrement.
 `readonly`    | *bool*      | false        | The `readonly` attribute indicates that the user cannot modify the value of the control.
+`value`       | *number*    | undefined    | The `value` attribute holds the current value in the control.
+
+## Events
+
+Event         | Description
+---           | ---
+`change`      | Fired when a change to the rating value is committed by the user. It is not fired if the value is changed using the value attribute.
+
 
 See the [documentation](http://dreyescat.github.io/rating-element/) for more info.
 
