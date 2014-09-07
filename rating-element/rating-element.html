@@ -1,4 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<!-- 
+  NOTE: We need to add the font-awesome.css here too along with the reference added
+  in the polymer-element template because otherwise the font files referenced inside
+  the css are not properly fetched.
+-->
+<link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css">
 <!--
 This is a versatile web component to create rating elements containing arithmetic progressions a la [python range](https://docs.python.org/3/library/stdtypes.html#ranges).
 
@@ -11,9 +17,10 @@ This is a versatile web component to create rating elements containing arithmeti
 @status alpha
 @homepage http://dreyescat.github.io/rating-element
 -->
-<polymer-element name="rating-element" attributes="start stop step readonly value">
+<polymer-element name="rating-element" attributes="start stop step readonly value empty filled">
   <template>
     <link rel="stylesheet" href="rating-element.css" />
+    <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css">
     <div id="rating">
       <template repeat="{{r, i in rates}}"></div>
         <div class="rating-symbol {{i <= index ? filled : empty}}"></div>
@@ -22,6 +29,9 @@ This is a versatile web component to create rating elements containing arithmeti
   </template>
   <script>
     (function (undefined) {
+      var EMPTY = 'symbol symbol-empty';
+      var FILLED = 'symbol symbol-filled';
+
       Polymer({
         // Events
         /**
@@ -74,8 +84,22 @@ This is a versatile web component to create rating elements containing arithmeti
         * @default undefined
         */
         value: undefined,
-        empty: 'symbol symbol-empty',
-        filled: 'symbol symbol-filled',
+        /**
+        * The `empty` attribute indicates the classes to be applied to the rating symbols when empty.
+        *
+        * @attribute empty
+        * @type string
+        * @default symbol symbol-empty
+        */
+        empty: EMPTY,
+        /**
+        * The `filled` attribute indicates the classes to be applied to the rating symbols when filled.
+        *
+        * @attribute filled
+        * @type string
+        * @default symbol symbol-filled
+        */
+        filled: FILLED,
         indexToRate: function (index) {
           return this.start + index * this.step;
         },
