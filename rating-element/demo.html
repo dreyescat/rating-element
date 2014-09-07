@@ -6,24 +6,84 @@
 
     <script src="../bower_components/platform/platform.js"></script>
     <link rel="import" href="rating-element.html">
-
+    <style>
+      input[type=number] {
+        width: 40px;
+      }
+      rating-element::shadow .custom-symbol {
+        display: inline-block;
+        border: 5px double white;
+        width: 30px;
+        height: 30px;
+      }
+      rating-element::shadow .custom-symbol-empty {
+        background-color: #ccc;
+      }
+      rating-element::shadow .custom-symbol-filled {
+        background-color: black;
+      }
+      rating-element::shadow .large {
+        font-size: 30px;
+      }
+    </style>
   </head>
   <body unresolved>
     <h2>An example of using <code>&lt;rating-element></code>:</h2>
+
     <h3>Default rating</h3>
-    <rating-element></rating-element>
     <code>&lt;rating-element&gt;&lt;/rating-element&gt;</code>
+    <rating-element></rating-element>
+    <input type="number"/>
+
+    <h3>Use fontawesome icons</h3>
+    <code>&lt;rating-element empty="fa fa-star-o" filled="fa fa-star"&gt;&lt;/rating-element&gt;</code>
+    <rating-element empty="fa fa-star-o" filled="fa fa-star"></rating-element>
+    <input type="number"/>
+
+    <h3>Use fontawesome icons with custom size</h3>
+    <code>&lt;rating-element empty="large fa fa-heart-o" filled="large fa fa-heart"&gt;&lt;/rating-element&gt;</code>
+    <rating-element empty="large fa fa-heart-o" filled="large fa fa-heart"></rating-element>
+    <input type="number"/>
+
     <h3>Read only rating with a value</h3>
-    <rating-element readonly value="2"></rating-element>
     <code>&lt;rating-element readonly value="2"&gt;&lt;/rating-element&gt;</code>
+    <rating-element readonly value="2"></rating-element>
+    <input type="number"/>
+
+    <h3>Use custom icon</h3>
+    <code>&lt;rating-element empty="custom-symbol custom-symbol-empty" filled="custom-symbol custom-symbol-filled"&gt;&lt;/rating-element&gt;</code>
+    <rating-element empty="custom-symbol custom-symbol-empty" filled="custom-symbol custom-symbol-filled"></rating-element>
+    <input type="number"/>
+
     <h3>Custom start and stop rate [1..10)</h3>
-    <rating-element start="1" stop="10"></rating-element>
     <code>&lt;rating-element start="1" stop="10"&gt;&lt;/rating-element&gt;</code>
+    <rating-element start="1" stop="10"></rating-element>
+    <input type="number"/>
+
     <h3>Custom start and stop rate [1..10) with step 2</h3>
-    <rating-element start="1" stop="10" step="2"></rating-element>
     <code>&lt;rating-element start="1" stop="10" step="2"&gt;&lt;/rating-element&gt;</code>
+    <rating-element start="1" stop="10" step="2"></rating-element>
+    <input type="number"/>
+
     <h3>Custom stop rate [0..-10) with step -2</h3>
-    <rating-element stop="-10" step="-2"></rating-element>
     <code>&lt;rating-element stop="-10" step="-2"&gt;&lt;/rating-element&gt;</code>
+    <rating-element stop="-10" step="-2"></rating-element>
+    <input type="number"/>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var ratingElements = document.getElementsByTagName('rating-element');
+        for (var i = 0; i < ratingElements.length; i++) {
+          ratingElements[i].addEventListener('change', function (e) {
+            var ratingElement = e.target;
+            ratingElement.nextElementSibling.value = ratingElement.value;
+          });
+          ratingElements[i].nextElementSibling.addEventListener('change', function (e) {
+            var inputElement = e.target;
+            inputElement.previousElementSibling.value = inputElement.value;
+          });
+        }
+      });
+    </script>
   </body>
 </html>
