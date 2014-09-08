@@ -1,10 +1,4 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<!-- 
-  NOTE: We need to add the font-awesome.css here too along with the reference added
-  in the polymer-element template because otherwise the font files referenced inside
-  the css are not properly fetched.
--->
-<link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css">
 <!--
 This is a versatile web component to create rating elements containing arithmetic progressions a la [python range](https://docs.python.org/3/library/stdtypes.html#ranges).
 
@@ -18,10 +12,9 @@ This is a versatile web component to create rating elements containing arithmeti
 @homepage http://dreyescat.github.io/rating-element
 @demo http://dreyescat.github.io/rating-element/rating-element/demo.html
 -->
-<polymer-element name="rating-element" attributes="start stop step readonly value empty filled">
+<polymer-element name="rating-element" attributes="start stop step readonly value empty filled symbols">
   <template>
     <link rel="stylesheet" href="rating-element.css" />
-    <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css">
     <div id="rating">
       <template repeat="{{r, i in rates}}"></div>
         <div class="rating-symbol {{i <= index ? filled : empty}}"></div>
@@ -101,6 +94,14 @@ This is a versatile web component to create rating elements containing arithmeti
         * @default symbol symbol-filled
         */
         filled: FILLED,
+        /**
+        * The `symbols` attribute specifies the href of the css with the set of symbols (a.k.a. glyphs) for empty and filled states.
+        *
+        * @attribute symbols
+        * @type string
+        * @default undefined
+        */
+        symbols: undefined,
         indexToRate: function (index) {
           return this.start + index * this.step;
         },
@@ -155,6 +156,29 @@ This is a versatile web component to create rating elements containing arithmeti
                 }
               };
             })(i));
+          }
+          // Inlcude optional css stylesheet with symbols.
+          if (this.symbols) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = this.symbols;
+
+            this.shadowRoot.appendChild(link);
+            // As link elements are not supported in shadow DOM, we have to convert them
+            // to style elements.
+            this.element.convertSheetsToStyles(this.shadowRoot);
+
+            // NOTE: We need to link the stylesheet definition in the header along with the one added
+            // in the polymer-element shadowRoot because otherwise the font files referenced inside
+            // the css are not properly fetched.
+            // Sadly adding this stylesheet into the head of the document also affects the whole document
+            // with the css rules included :(.
+            var fakeLink = link.cloneNode();
+            // Trying to disable the global effect of the stylesheet. NOT WORKING.
+            //fakeLink.disabled = true;
+            document.getElementsByTagName('head')[0].appendChild(fakeLink);
+            // Trying to remove the global stylesheet after. NOT WORKING.
+            //fakeLink.parentNode.removeChild(fakeLink);
           }
         },
         ready: function () {

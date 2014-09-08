@@ -2,7 +2,15 @@
 
 A rating web component using [polymer](http://www.polymer-project.org/) a la python [range](https://docs.python.org/3/library/stdtypes.html#ranges).
 
-Rating symbols can use any of the awesome icons provided by `Font Awesome by Dave Gandy - http://fontawesome.io`. Check [fontawesome](http://fortawesome.github.io/Font-Awesome/icons/) for a list of available icons.
+Rating element can use symbols provided by an external source, like:
+
+* `Font Awesome by Dave Gandy - http://fontawesome.io`. Check [fontawesome](http://fortawesome.github.io/Font-Awesome/icons/) for a list of available symbols.
+
+* `Typicons by Stephen Hutchings - http://typicons.com/`. Check [typicons](http://typicons.com/) for a list of available symbols.
+
+* If you are already using [Bootstrap](http://getbootstrap.com/), then you have a set of [glyphicons](http://getbootstrap.com/components/) at your disposal.
+
+* Or you can even generate and customize your own set of symbols with [fontello](http://fontello.com/).
 
 ## Demo
 
@@ -47,6 +55,7 @@ Attribute     | Options     | Default              | Description
 `step`        | *number*    | 1                    | The `step` attribute specifies the increment or decrement.
 `readonly`    | *bool*      | false                | The `readonly` attribute indicates that the user cannot modify the value of the control.
 `value`       | *number*    | undefined            | The `value` attribute holds the current value in the control.
+`symbols`     | *string*    | undefined            | The `symbols` attribute specifies the href of the css with the set of symbols (a.k.a. glyphs) for empty and filled states.
 `empty`       | *string*    | symbol symbol-empty  | The `empty` attribute indicates the classes to be applied to the rating symbols when empty.
 `filled`      | *string*    | symbol symbol-filled | The `filled` attribute indicates the classes to be applied to the rating symbols when filled.
 
