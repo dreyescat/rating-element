@@ -14,7 +14,7 @@ Rating element can use symbols provided by an external source, like:
 
 ## Demo
 
-See [rating-element](http://dreyescat.github.io/rating-element/components/rating-element/demo.html) in action.
+See [rating-element](http://dreyescat.github.io/rating-element/rating-element/demo.html) in action.
 
 ## Install
 
