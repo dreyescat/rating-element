@@ -1,5 +1,7 @@
-.symbol {
+.rating-symbol {
   display: inline-block;
+}
+.symbol {
   border-radius: 50%;
   border: 5px double white;
   width: 30px;
