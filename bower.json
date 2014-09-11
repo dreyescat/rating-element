@@ -20,7 +20,9 @@
     "bower_components"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
+    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0"
+  },
+  "devDependencies": {
     "polymer-test-tools": "Polymer/polymer-test-tools#>=0.4.0 <1.0.0",
     "fontawesome": "~4.2.0",
     "typicons": "~2.0.6"
