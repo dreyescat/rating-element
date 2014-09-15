@@ -3,6 +3,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-bump');
 
   grunt.initConfig({
     'connect': {
@@ -22,9 +23,21 @@ module.exports = function (grunt) {
         'dist/**/*',
         'rating-element/*'
       ]
+    },
+    'bump': {
+      options: {
+        files: ['bower.json'],
+        commit: true,
+        commitMessage: 'Release v%VERSION%',
+        commitFiles: ['bower.json'],
+        createTag: true,
+        tagName: 'v%VERSION%',
+        tagMessage: '%VERSION%',
+        push: true
+      }
     }
   });
 
   grunt.registerTask('serve', ['connect']);
-  grunt.registerTask('deploy', ['gh-pages']);
+  grunt.registerTask('deploy', ['bump', 'gh-pages']);
 };
