@@ -122,7 +122,9 @@ This is a versatile web component to create rating elements containing arithmeti
           // default value directly on the prototype (or on the publish object),
           // you may run into unexpected “shared state” across different instances
           // of the same element.
-          this.rates = [];
+          //
+          // Create a rates array (likely sparsed) to allow template repeat iteration.
+          this.rates = new Array(this.rateToIndex(this.stop));
         },
         domReady: function () {
           var that = this;
@@ -179,12 +181,6 @@ This is a versatile web component to create rating elements containing arithmeti
             document.getElementsByTagName('head')[0].appendChild(fakeLink);
             // Trying to remove the global stylesheet after. NOT WORKING.
             //fakeLink.parentNode.removeChild(fakeLink);
-          }
-        },
-        ready: function () {
-          // rates array is created to allow template repeat iteration.
-          for (var i = 0; i < this.rateToIndex(this.stop); i++) {
-            this.rates.push(i);
           }
         },
         valueChanged: function (oldValue, newValue) {
