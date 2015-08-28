@@ -192,11 +192,8 @@ This is a versatile web component to create rating elements containing arithmeti
         ready: function () {
           // index will keep the the index of the rating selected or being selected.
           this.index = this.rateToIndex(this.value);
-          // rates array is created to allow template repeat iteration.
-          this.rates = [];
-          for (var i = 0; i < this.rateToIndex(this.stop); i++) {
-            this.rates.push(i);
-          }
+          // rates array (likely sparsed) to allow template repeat iteration.
+          this.rates = new Array(this.rateToIndex(this.stop));
         },
         valueChanged: function (newValue) {
           // If it is not a correct value, reset to undefined.
