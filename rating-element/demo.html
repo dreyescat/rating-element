@@ -4,12 +4,14 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>rating-element</title>
 
-    <script src="../bower_components/platform/platform.js"></script>
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="rating-element.html">
     <style>
       input[type=number] {
         width: 40px;
       }
+    </style>
+    <style is="custom-style">
       rating-element::shadow .custom-symbol {
         display: inline-block;
         border: 5px double white;

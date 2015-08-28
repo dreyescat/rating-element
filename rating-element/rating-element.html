@@ -12,12 +12,12 @@ This is a versatile web component to create rating elements containing arithmeti
 @homepage http://dreyescat.github.io/rating-element/rating-element
 @demo http://dreyescat.github.io/rating-element/rating-element/demo.html
 -->
-<polymer-element name="rating-element" attributes="start stop step readonly value empty filled symbols">
+<dom-module id="rating-element">
   <template>
     <link rel="stylesheet" href="rating-element.css" />
     <div id="rating">
-      <template repeat="{{r, i in rates}}"></div>
-        <div class="rating-symbol {{i <= index ? filled : empty}}"></div>
+      <template is="dom-repeat" items="{{rates}}" index-as="i"></div>
+        <div class$="{{computeSymbol(i, index)}}"></div>
       </template>
     </div>
   </template>
@@ -27,6 +27,7 @@ This is a versatile web component to create rating elements containing arithmeti
       var FILLED = 'symbol symbol-filled';
 
       Polymer({
+        is: 'rating-element',
         // Events
         /**
         * The `change` event is fired whenever the rating value is changed by the user. It is not fired if the value is changed using the value attribute.
@@ -35,73 +36,98 @@ This is a versatile web component to create rating elements containing arithmeti
         * @param {Object} detail
         */
         // Attributes
-        /**
-        * The `start` attribute sets the starting value.
-        *
-        * @attribute start
-        * @type number
-        * @default 0
-        */
-        start: 0,
-        /**
-        * The `stop` attribute sets the stop value. The stop value is not included.
-        *
-        * @attribute stop
-        * @type number
-        * @default 5
-        */
-        stop: 5,
-        /**
-        * The `step` attribute specifies the increment or decrement.
-        *
-        * If step is positive, the last element is the largest _start + i \* step_ less than stop.
-        * If step is negative, the last element is the smallest _start + i \* step_ greater than stop.
-        *
-        * @attribute step
-        * @type number
-        * @default 1
-        */
-        step: 1,
-        /**
-        * The `readonly` attribute indicates that the user cannot modify the value of the control.
-        *
-        * @attribute readonly
-        * @type bool
-        * @default false
-        */
-        readonly: false,
-        /**
-        * The `value` attribute holds the current value in the control.
-        *
-        * @attribute value
-        * @type number
-        * @default undefined
-        */
-        value: undefined,
-        /**
-        * The `empty` attribute indicates the classes to be applied to the rating symbols when empty.
-        *
-        * @attribute empty
-        * @type string
-        * @default symbol symbol-empty
-        */
-        empty: EMPTY,
-        /**
-        * The `filled` attribute indicates the classes to be applied to the rating symbols when filled.
-        *
-        * @attribute filled
-        * @type string
-        * @default symbol symbol-filled
-        */
-        filled: FILLED,
-        /**
-        * The `symbols` attribute specifies the href of the css with the set of symbols (a.k.a. glyphs) for empty and filled states.
-        *
-        * @attribute symbols
-        * @type string
-        * @default undefined
-        */
-        symbols: undefined,
+        properties: {
+          /**
+          * The `start` attribute sets the starting value.
+          *
+          * @attribute start
+          * @type number
+          * @default 0
+          */
+          start: {
+            type: Number,
+            value: 0
+          },
+          /**
+          * The `stop` attribute sets the stop value. The stop value is not included.
+          *
+          * @attribute stop
+          * @type number
+          * @default 5
+          */
+          stop: {
+            type: Number,
+            value: 5
+          },
+          /**
+          * The `step` attribute specifies the increment or decrement.
+          *
+          * If step is positive, the last element is the largest _start + i \* step_ less than stop.
+          * If step is negative, the last element is the smallest _start + i \* step_ greater than stop.
+          *
+          * @attribute step
+          * @type number
+          * @default 1
+          */
+          step: {
+            type: Number,
+            value: 1
+          },
+          /**
+          * The `readonly` attribute indicates that the user cannot modify the value of the control.
+          *
+          * @attribute readonly
+          * @type bool
+          * @default false
+          */
+          readonly: {
+            type: Boolean,
+            value: false
+          },
+          /**
+          * The `value` attribute holds the current value in the control.
+          *
+          * @attribute value
+          * @type number
+          * @default undefined
+          */
+          value: {
+            type: Number,
+            observer: 'valueChanged'
+          },
+          /**
+          * The `empty` attribute indicates the classes to be applied to the rating symbols when empty.
+          *
+          * @attribute empty
+          * @type string
+          * @default symbol symbol-empty
+          */
+          empty: {
+            type: String,
+            value: EMPTY
+          },
+          /**
+          * The `filled` attribute indicates the classes to be applied to the rating symbols when filled.
+          *
+          * @attribute filled
+          * @type string
+          * @default symbol symbol-filled
+          */
+          filled: {
+            type: String,
+            value: FILLED
+          },
+          /**
+          * The `symbols` attribute specifies the href of the css with the set of symbols (a.k.a. glyphs) for empty and filled states.
+          *
+          * @attribute symbols
+          * @type string
+          * @default undefined
+          */
+          symbols: {
+            type: String
+          }
+        },
         indexToRate: function (index) {
           return this.start + index * this.step;
         },
@@ -116,80 +142,60 @@ This is a versatile web component to create rating elements containing arithmeti
           var stop = this.step > 0 ? this.stop - 1 : this.start + 1;
           return start <= rate && rate <= stop && (this.start + rate) % this.step === 0;
         },
-        created: function () {
-          // For properties that are objects or arrays, you should always
-          // initialize the properties in the created callback. If you set the
-          // default value directly on the prototype (or on the publish object),
-          // you may run into unexpected “shared state” across different instances
-          // of the same element.
-          this.rates = [];
+        computeSymbol: function (i, index) {
+          return 'rating-symbol ' + (i <= index ? this.filled : this.empty);
         },
-        domReady: function () {
-          var that = this;
-          var ratingSymbols = this.$.rating.getElementsByClassName('rating-symbol');
-          for (var i = 0; i < ratingSymbols.length; i++) {
-            // Add event listeners to every rating symbol
-            ratingSymbols[i].addEventListener('click', (function (index) {
-              return function () {
-                if (!that.readonly) {
-                  // Update the rate value and fire the change event.
-                  // The index property will be updated accordingly in the
-                  // valueChanged handler.
-                  that.value = that.indexToRate(index);
-                  that.fire('change');
-                }
-              };
-            })(i));
-            ratingSymbols[i].addEventListener('mouseenter', (function (index) {
-              return function () {
-                if (!that.readonly) {
-                  // Highlight the rating being selected.
-                  that.index = index;
-                }
-              };
-            })(i));
-            ratingSymbols[i].addEventListener('mouseleave', (function (index) {
-              return function () {
-                if (!that.readonly) {
-                  // Restore original index according to the current selected value.
-                  that.index = that.rateToIndex(that.value);
-                }
-              };
-            })(i));
-          }
-          // Inlcude optional css stylesheet with symbols.
-          if (this.symbols) {
-            var link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = this.symbols;
+        attached: function () {
+          this.async(function() {
+            var that = this;
+            var ratingSymbols = this.$.rating.getElementsByClassName('rating-symbol');
+            for (var i = 0; i < ratingSymbols.length; i++) {
+              // Add event listeners to every rating symbol
+              ratingSymbols[i].addEventListener('click', (function (index) {
+                return function () {
+                  if (!that.readonly) {
+                    // Update the rate value and fire the change event.
+                    // The index property will be updated accordingly in the
+                    // valueChanged handler.
+                    that.value = that.indexToRate(index);
+                    that.fire('change');
+                  }
+                };
+              })(i));
+              ratingSymbols[i].addEventListener('mouseenter', (function (index) {
+                return function () {
+                  if (!that.readonly) {
+                    // Highlight the rating being selected.
+                    that.index = index;
+                  }
+                };
+              })(i));
+              ratingSymbols[i].addEventListener('mouseleave', (function (index) {
+                return function () {
+                  if (!that.readonly) {
+                    // Restore original index according to the current selected value.
+                    that.index = that.rateToIndex(that.value);
+                  }
+                };
+              })(i));
+            }
+            // Inlcude optional css stylesheet with symbols.
+            if (this.symbols) {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = this.symbols;
 
-            this.shadowRoot.appendChild(link);
-            // As link elements are not supported in shadow DOM, we have to convert them
-            // to style elements.
-            this.element.convertSheetsToStyles(this.shadowRoot);
-
-            // NOTE: We need to link the stylesheet definition in the header along with the one added
-            // in the polymer-element shadowRoot because otherwise the font files referenced inside
-            // the css are not properly fetched.
-            // Sadly adding this stylesheet into the head of the document also affects the whole document
-            // with the css rules included :(.
-            var fakeLink = link.cloneNode();
-            // Trying to disable the global effect of the stylesheet. NOT WORKING.
-            //fakeLink.disabled = true;
-            document.getElementsByTagName('head')[0].appendChild(fakeLink);
-            // Trying to remove the global stylesheet after. NOT WORKING.
-            //fakeLink.parentNode.removeChild(fakeLink);
-          }
+              Polymer.dom(this.root).appendChild(link);
+            }
+          });
         },
         ready: function () {
           // index will keep the the index of the rating selected or being selected.
           this.index = this.rateToIndex(this.value);
-          // rates array is created to allow template repeat iteration.
-          for (var i = 0; i < this.rateToIndex(this.stop); i++) {
-            this.rates.push(i);
-          }
+          // rates array (likely sparsed) to allow template repeat iteration.
+          this.rates = new Array(this.rateToIndex(this.stop));
         },
-        valueChanged: function (oldValue, newValue) {
+        valueChanged: function (newValue) {
           // If it is not a correct value, reset to undefined.
           var value = parseInt(newValue, 10);
           if (isNaN(value) || !this.contains(value)) {
@@ -202,4 +208,4 @@ This is a versatile web component to create rating elements containing arithmeti
       });
     })();
   </script>
-</polymer-element>
+</dom-module>
