@@ -1,87 +1,58 @@
 <!doctype html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rating-element</title>
 
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- Enable shadow DOM -->
+    <!--
+    <script>
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+    </script>
+    -->
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/iron-iconset-svg/demo/svg-sample-icons.html">
+    <link rel="import" href="../bower_components/iron-iconset/iron-iconset.html">
     <link rel="import" href="rating-element.html">
     <style>
       input[type=number] {
         width: 40px;
       }
-    </style>
-    <style is="custom-style">
-      rating-element::shadow .custom-symbol {
-        display: inline-block;
-        border: 5px double white;
-        width: 30px;
-        height: 30px;
-      }
-      rating-element::shadow .custom-symbol-empty {
-        background-color: #ccc;
-      }
-      rating-element::shadow .custom-symbol-filled {
-        background-color: black;
-      }
-      rating-element::shadow .large {
-        font-size: 30px;
+      rating-element {
+        display: block;
+        margin: 5px 0;
       }
     </style>
   </head>
-  <body unresolved>
-    <h2>An example of using <code>&lt;rating-element></code>:</h2>
+  <body>
+    <iron-iconset name="img-sample-icons"
+      src="../bower_components/iron-iconset/demo/my-icons.png"
+      width="96" size="24"
+      icons="location place starta stopb bus car train walk">
+    </iron-iconset>
 
-    <h3>Default rating</h3>
-    <code>&lt;rating-element&gt;&lt;/rating-element&gt;</code>
-    <rating-element></rating-element>
+    <h3>Use iron icons</h3>
+    <code>
+      &lt;rating-element empty="star-border" filled="star"&gt;&lt;/rating-element&gt;
+    </code>
+    <rating-element empty="star-border" filled="star"></rating-element>
     <input type="number"/>
 
-    <h3>Use fontawesome icons</h3>
-    <code>&lt;rating-element empty="fa fa-star-o fa-2x" filled="fa fa-star fa-2x" symbols="../bower_components/fontawesome/css/font-awesome.css"&gt;&lt;/rating-element&gt;</code>
-    <rating-element empty="fa fa-star-o fa-2x" filled="fa fa-star fa-2x" symbols="../bower_components/fontawesome/css/font-awesome.css"></rating-element>
+    <h3>Use svg iron iconset</h3>
+    <code>
+      &lt;rating-element empty="svg-sample-icons:twitter" filled="svg-sample-icons:codepen"&gt;&lt;/rating-element&gt;
+    </code>
+    <rating-element empty="svg-sample-icons:twitter" filled="svg-sample-icons:codepen"></rating-element>
     <input type="number"/>
 
-    <h3>Use typicons icons</h3>
-    <code>&lt;rating-element empty="typcn typcn-thumbs-down large" filled="typcn typcn-thumbs-up large" symbols="../bower_components/typicons/src/font/typicons.css"&gt;&lt;/rating-element&gt;</code>
-    <rating-element empty="typcn typcn-thumbs-down large" filled="typcn typcn-thumbs-up large" symbols="../bower_components/typicons/src/font/typicons.css"></rating-element>
+    <h3>Use image iron iconset</h3>
+    <code>
+      &lt;rating-element empty="img-sample-icons:stara" filled="img-sample-icons:stopb"&gt;&lt;/rating-element&gt;
+    </code>
+    <rating-element empty="img-sample-icons:starta" filled="img-sample-icons:stopb"></rating-element>
     <input type="number"/>
-
-    <h3>Use fontello generated icons</h3>
-    <code>&lt;rating-element empty="icon-meh large" filled="icon-smile large" symbols="../dist/fontello/css/fontello.css"&gt;&lt;/rating-element&gt;</code>
-    <rating-element empty="icon-meh large" filled="icon-smile large" symbols="../dist/fontello/css/fontello.css"></rating-element>
-    <input type="number"/>
-
-    <h3>Use bootstrap CDN glyphicons</h3>
-    <code>&lt;rating-element empty="glyphicon glyphicon-heart-empty large" filled="glyphicon glyphicon-heart large" symbols="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"&gt;&lt;/rating-element&gt;</code>
-    <rating-element empty="glyphicon glyphicon-heart-empty large" filled="glyphicon glyphicon-heart large" symbols="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"></rating-element>
-    <input type="number"/>
-
-    <h3>Read only rating with a value</h3>
-    <code>&lt;rating-element readonly value="2"&gt;&lt;/rating-element&gt;</code>
-    <rating-element readonly value="2"></rating-element>
-    <input type="number"/>
-
-    <h3>Use custom icon</h3>
-    <code>&lt;rating-element empty="custom-symbol custom-symbol-empty" filled="custom-symbol custom-symbol-filled"&gt;&lt;/rating-element&gt;</code>
-    <rating-element empty="custom-symbol custom-symbol-empty" filled="custom-symbol custom-symbol-filled"></rating-element>
-    <input type="number"/>
-
-    <h3>Custom start and stop rate [1..10)</h3>
-    <code>&lt;rating-element start="1" stop="10"&gt;&lt;/rating-element&gt;</code>
-    <rating-element start="1" stop="10"></rating-element>
-    <input type="number"/>
-
-    <h3>Custom start and stop rate [1..10) with step 2</h3>
-    <code>&lt;rating-element start="1" stop="10" step="2"&gt;&lt;/rating-element&gt;</code>
-    <rating-element start="1" stop="10" step="2"></rating-element>
-    <input type="number"/>
-
-    <h3>Custom stop rate [0..-10) with step -2</h3>
-    <code>&lt;rating-element stop="-10" step="-2"&gt;&lt;/rating-element&gt;</code>
-    <rating-element stop="-10" step="-2"></rating-element>
-    <input type="number"/>
-
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var ratingElements = document.getElementsByTagName('rating-element');
