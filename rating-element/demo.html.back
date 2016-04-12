@@ -12,11 +12,17 @@
       window.Polymer.dom = 'shadow';
     </script>
     -->
+    <!--
+    <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.css">
+    -->
     <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="../bower_components/iron-iconset-svg/demo/svg-sample-icons.html">
     <link rel="import" href="../bower_components/iron-iconset/iron-iconset.html">
-    <link rel="import" href="svg-sample-symbols.html">
     <link rel="import" href="rating-element.html">
+    <!--
+    <link rel="import" href="font-sample-icons.html">
+    <link rel="import" href="default-icons.html">
+    -->
     <style>
       input[type=number] {
         width: 40px;
@@ -26,6 +32,11 @@
         margin: 5px 0;
       }
     </style>
+    <style is="custom-style">
+      rating-element::shadow iron-icon {
+        outline: 1px solid red !important;
+      }
+    </style>
   </head>
   <body>
     <iron-iconset name="img-sample-icons"
@@ -33,13 +44,6 @@
       width="96" size="24"
       icons="location place starta stopb bus car train walk">
     </iron-iconset>
-
-    <h3>Use svg symbols</h3>
-    <code>
-      &lt;rating-element empty="star-border" filled="star"&gt;&lt;/rating-element&gt;
-    </code>
-    <rating-element empty="svg-sample-symbols:fa-facebook" filled="svg-sample-symbols:fa-twitter"></rating-element>
-    <input type="number"/>
 
     <h3>Use iron icons</h3>
     <code>
@@ -61,6 +65,16 @@
     </code>
     <rating-element empty="img-sample-icons:starta" filled="img-sample-icons:stopb"></rating-element>
     <input type="number"/>
+    <!--
+    <h3>Use font iron icons (shaddy DOM)</h3>
+    <rating-element empty="font-sample-icons:star" filled="font-sample-icons:heart"></rating-element>
+    <input type="number"/>
+    -->
+    <!--
+    <h3>Use CSS iron icons (shaddy DOM)</h3>
+    <rating-element empty="default-icons:empty" filled="default-icons:full"></rating-element>
+    <input type="number"/>
+    -->
     <script>
       document.addEventListener("DOMContentLoaded", function() {
         var ratingElements = document.getElementsByTagName('rating-element');

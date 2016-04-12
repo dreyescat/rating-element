@@ -1,0 +1,15 @@
+.rating-symbol {
+  display: inline-block;
+}
+.symbol {
+  border-radius: 50%;
+  border: 5px double white;
+  width: 15px;
+  height: 15px;
+}
+.symbol-empty {
+  background-color: #ccc;
+}
+.symbol-filled {
+  background-color: black;
+}
